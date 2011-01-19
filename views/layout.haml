@@ -1,0 +1,100 @@
+!!! Transitional
+%html
+  %head
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8">  
+    %title Wippr | Testing
+    <link href='http://fonts.googleapis.com/css?family=Droid+Serif&subset=latin' rel='stylesheet' type='text/css'>
+    -if development?
+      %link(rel="stylesheet" href="/stylesheets/wipnation.css")
+    -else
+      %link(rel="stylesheet" href="/stylesheets/data.css")
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+
+    -#<script type="text/javascript" src="/javascripts/compiled.js"></script>
+    <script type="text/javascript" src="/javascripts/injector.js"></script>
+    <script type="text/javascript" src="/javascripts/user.js"></script>
+
+    <script type="text/javascript" src="/javascripts/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="/javascripts/ckeditor/adapters/jquery.js"></script>
+    <script>
+    - unless current_user.nil?
+      ="user_id = '#{current_user.handle}';"
+      ="user_handle = '#{get_user_handle}';"
+      ="avatar_url = '#{current_user.avatar}';"
+    - else
+      ="user_id = '';"
+      ="user_handle = '';"
+      ="avatar_url = '';"
+      
+    </script>
+    /[if IE]
+      <style>iframe {height:80% !important;}</style>
+%body
+
+
+
+  -if notice
+    #notice
+      .notice-message
+      <script>notice = true</script>
+      %span
+        =notice
+  #navbar
+  
+  
+    
+    
+    #management
+    #close-management
+    
+    
+    #userdetails
+      -if current_user != nil
+        #welcome
+          Welcome
+          =get_user_handle
+        #user
+          -if get_unread_messages > 0
+            #email.message-fire
+          -else
+            #email
+          #settings
+          #div
+          =link_to "<div id='logout'></div>", link_for_logout
+        #userpopups
+          #email-popup
+          #settings-popup
+          #logout-popup
+
+
+      -else
+        #login
+          .signin
+          .div
+            <img src="/images/signin_div.png"/>
+          %a{:href => link_for_signup }
+            .join
+        #signin-panel-container
+          #fb-button
+          #signin-panel
+            %form{:method=>"post", :action => link_for_login}
+              %input{:name => "id", :type=>"text", :id => "signin-user"}
+              %input{:name => "password", :type=>"password", :id => "signin-password"}
+              %button{:id => "signin-submit", :type => "submit"} sign in
+            #close-signin-panel
+            #signin-panel-shim
+          #signin-panel-label
+
+
+
+
+
+
+
+  #wrapper
+    #header
+      =link_to "Wippr Test Forum", link_for_root
+    =yield
+

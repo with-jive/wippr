@@ -1,0 +1,35 @@
+<script>page = "signup";</script>
+#signup-container
+  %h1 New User Signup
+  #signup-shim
+  .email-validation
+    <img src="/images/x.png" class="signup-x"/>
+    <img src="/images/check.png" class="signup-check"/>
+  .password-validation
+    <img src="/images/x.png" class="signup-x"/>
+    <img src="/images/check.png" class="signup-check"/>
+  %form{:method=>"post", :action => link_for_signup}
+
+    -unless username_error.nil?
+      .signup-error.signup-error-user
+        =username_error
+    -unless email_error.nil?
+      .signup-error.signup-error-email
+        =email_error
+    .signup-input
+      %span Username
+      %input{:name => "username", :maxlength => 15, :id => "signup-username", :value => username}
+    .signup-input
+      %span Email
+      %input{:name => "email", :id => "signup-email", :value => email}
+    .padding
+    .signup-input
+      %span Password
+      %input{:name => "password", :type=> "password", :id => "signup-password"}
+    .signup-input
+      %span.confirmation Confirmation
+      %input{:name => "password-conf", :type=> "password", :id => "signup-password-conf"}
+    .padding
+    .signup-submit
+      %button{:id => "submit-button", :disabled=>"disabled"} Create Account
+

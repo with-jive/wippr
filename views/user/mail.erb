@@ -1,0 +1,107 @@
+<div id="the-man">
+  <div id="mail-header" class="management-header"></div>
+  <div id="man-menu">
+    <div class="man-menu mm-notices">notices</div>
+    <div class="man-menu mm-inbox">inbox</div>
+    <div class="man-menu mm-outbox">outbox</div>
+    <div class="man-menu mm-compose">compose</div>
+  </div>
+  <div id="man-content">
+    <div id="man-view" class="mail">
+      <div class="view notices">No notices have been posted to your account</div>
+      <div class="view inbox">
+        
+        <div class="header">
+           <span class="mail-header-subject"></span>
+           <span class="mail-header-from"></span>
+           <span class="mail-header-date"></span>
+        </div>
+
+        <div class="mail-items">
+            <% if @inbox.count == 0 %>
+              <div class="mail-item preset">
+                  <div class="default-message">Your inbox is empty!</div>
+              </div>
+              <% else %>
+                <% for letter in inbox %>
+                  <div id="<%= letter["letter_id"] %>" class="mail-item <%= if !letter["read"] then 'unread' end %>">
+                      <div class="subject"><%= letter["subject"] %></div>
+                      <div class="from"><%= letter["from_id"] %></div>
+                      <div class="date"><%= letter["date"] %></div>
+                  </div>
+                 <% end %>
+              <% end %>
+        </div>
+        
+        
+      </div>
+      <div class="view outbox">
+        <div class="header">
+           <span class="mail-header-subject"></span>
+           <span class="mail-header-to"></span>
+           <span class="mail-header-date"></span>
+        </div>
+        
+        <div class="mail-items">
+
+            <% if outbox.count == 0 %>
+              <div class="mail-item preset-outbox-item preset">
+                  <div class="default-message">You havn't sent any messages yet :(</div>
+              </div>
+              <% else %>
+                <% for letter in outbox %>
+                  <div id="<%= letter["letter_id"] %>" class="mail-item">
+                      <div class="subject"><%= letter["subject"] %></div>
+                      <div class="to"><%= letter["to_id"] %></div>
+                      <div class="date"><%= letter["date"] %></div>
+                  </div>
+                 <% end %>
+              <% end %>
+
+        </div>
+          
+          
+      </div>
+      <div class="view compose">
+          <div id="compose-spinner">
+              <img src="/images/loading_black.gif">
+          </div>
+          <div id="compose-message-container"></div>
+          <div id="compose-wrapper">
+              <span class="to-who">TO</span>
+
+              <input name="recipient" id="compose-recipient"/>
+              <span class="subject">Subject</span>
+              <input name="subject" id="compose-subject"/>
+              <button name="send-msg" id="compose-sendbutton">Send</button>
+
+
+              <div id="mail-compose-editor"></div>
+          </div>
+      </div>
+      <div class="view reader">
+          <div id="reader-spinner">
+              <img src="/images/loading_black.gif">
+          </div>
+          <span class="reader-container">
+              <span class="info">
+                  <p class="label">
+                      <i>From:</i>
+                      <span class="from"></span>
+                  </p>
+                  <p class="label"><i>To:</i>
+                      <span class="recipient"></span>
+                  </p>
+                  <p class="label"><i>Subject:</i>
+                      <span class="msg-subject"></span>
+                  </p>
+              </span>
+              <p><span class="msg-body"></span></p>
+              <p class="msg-date-label">Sent at <span class="msg-date"></span></p>
+          </span>
+      </div>
+
+
+    </div>
+  </div>
+</div>

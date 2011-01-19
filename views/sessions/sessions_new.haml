@@ -1,0 +1,25 @@
+%h1 Sign in using any of your favorite accounts
+
+
+.signin-container
+  .facebook
+    %p
+      <a href="/auth/facebook"><img src="/images/facebook.png"/></a>
+
+      
+  .site
+    %p
+      Wipnation account
+    .username.fade
+      Username or Email
+    .password.fade
+      password
+    %form{:method=>"post", :action => link_for_login}
+      %input{:name => "id", :type=>"text"}
+      %input{:name => "password", :type=>"password"}
+      %input{:name => "Login", :value=>"Login", :type=>"submit", :class=>"submit"}
+      -#%input{:name => "authenticity_token", :type=>"hidden", :value=>form_authenticity_token }
+
+.none
+  Don't have any of those accounts?
+  =link_to "Create a new WipNation Account", link_for_signup

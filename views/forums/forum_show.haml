@@ -1,0 +1,46 @@
+
+
+.go-back.fade
+  =link_to "Back to Index", link_for_root
+.create-new-post
+  -if current_user.nil?
+    %span{:class=>"fade"}
+      =link_to "Create New Post", @forum_id + "/new"
+  -else
+    %span
+      =link_to "Create New Post", @forum_id + "/new"
+
+
+.forum
+  .header
+    ="The #{@forum_name.capitalize} Forum"
+
+.post-container
+
+  -unless  @posts.size == 0
+    -for post in @posts
+      .post
+        .title
+          =link_to post.title, (url_for_post post.forum_id, post.slug)
+        .author
+          %span.fade
+            last post by
+          %b
+            =post.last_author_handle
+        .created-at.fade
+          =post.created_at
+        .stats
+          %i.fade replies
+          =post.replies
+          |
+          %i.fade views
+          =post.views
+        -unless current_user.nil?
+          -if current_user.isAdmin?
+            .deletePost
+              =link_to "x", url_for_post_delete(post.forum_id, post.slug)
+  -else
+    #no-posts
+      Eep! No posts yet :(
+            
+

@@ -1,0 +1,55 @@
+<script>page = "postdisplay"</script>
+.go-back.fade
+  =link_to "Back to "+(@forum_name.capitalize), link_for_root + @forum_name
+.message-container
+  .post-name
+    = @post_title
+  -for message in @messages
+    -@post_id = message.post_id
+    .message{:class=> "#{message.id}"}
+      .author
+        .title
+          = link_to message.author_handle, link_for_user(message.author_id)
+        .avatar
+          %img{:src => message.avatar_url, :class=>"avatar-image"}
+          %img{:src => "/images/avatar_cutoff.png", :class=>"avatar-cutoff"}
+        .crits
+          .up
+            0
+          .down
+            0
+      .backer
+      .edit-me{:class=>"#{message.author_id}"}
+        %span.edit
+          edit
+        %span.delete
+          delete
+      .updated_at
+        = message.updated_at
+      .body
+        = message.message
+  #reply-preview-container
+
+.reply{:style=> "margin-bottom:80px;"}
+  #reply-cover
+  -unless current_user.nil?
+    <script>
+    ="root= '#{@root}';"
+    ="forum_name = '#{@forum_name}';"
+    ="post_id = '#{@post_id}';"
+    ="post_title = '#{@post_title}';"
+    </script>
+    #reply-box
+      .reply-content
+        %textarea{:id=>"reply-textarea"}
+    #reply-button
+      Reply
+    #reply-submit-button
+      SAVE!
+    #reply-close-button
+      Close Me
+    #huge-button
+      MAKE ME HUGE
+  -else
+    #reply-button-false
+      .fade.null Reply

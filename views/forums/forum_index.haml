@@ -1,0 +1,17 @@
+
+.spacer
+- for forum in @forums
+  .forum
+    .header
+      =link_to forum.title, link_for_root + forum.id
+    .forum-details
+      .posts
+        Posts:
+        =forum.posts_num
+      .title
+        =forum.last_post_title
+        %span{:class=>"fade"} by
+        =forum.last_post_author
+      .date.fade
+        =forum.last_post_date
+

@@ -1,0 +1,11 @@
+.bundle
+db/*.sqlite3
+log/*.log
+tmp/**/*
+out/
+.idea/
+*.iml
+*.swp
+log/
+public/stylesheets/images
+.geany*

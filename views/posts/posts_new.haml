@@ -1,0 +1,22 @@
+
+.go-back
+  =link_to "Back to " + @forum_name, link_for_root + @forum_name
+
+<script>
+page = "postnewtopic";
+</script>
+
+.post-container.center-text.yui-skin-sam.black
+  %form{:action => "create", :id => "postNewTopicForm", :method=>"post"}
+    .topic-type.fade
+      You are posting a topic in the
+      =@forum_name.capitalize
+      Forum.
+    .title
+      Topic Title
+      %input{ :name => "title", :maxlength => 30}
+    .editor-container
+      %textarea{ :name => "body", :id => "postTextBox"}
+    .submit-container
+      %button{ :id => "postSubmitButton"} Post topic!
+
